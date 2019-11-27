@@ -1,0 +1,32 @@
+
+ import { Observable }from "rxjs"
+ import { addItem } from "./helper"
+ import "rxjs/add/operator/share"
+
+
+ var observable = Observable.create(
+     (observer:any) =>{
+          observer.next("Event 1")
+          observer.next("Event 2")
+          observer.next("Event 3")
+          setInterval(() => {
+              observer.next("repetead event")
+         }, 2000)
+         
+     }
+ ).share();
+
+
+
+
+ let o1 = observable.subscribe((result:any) => addItem(result))
+
+ setTimeout(() => {
+     o1.unsubscribe()
+     let o2 = observable.subscribe((result:any) => addItem("o2->" + result))
+
+ }, 6001)
+
+
+
+

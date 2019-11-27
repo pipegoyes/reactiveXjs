@@ -1,0 +1,13 @@
+import { Subject } from "rxjs/Subject"
+import { addItem } from "./helper";
+
+var subject = new Subject();
+var o1 = subject.subscribe(result => addItem(result))
+
+subject.next("Event 1")
+subject.next("Event 2")
+
+
+var o2 = subject.subscribe((data:any) => addItem("o2 ->" + data))
+
+subject.next("Event 3")
